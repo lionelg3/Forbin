@@ -71,7 +71,7 @@ func (self *PGCommand) Stats() (stats sql.DBStats) {
 }
 
 func (self *PGCommand) InitDatabase() (err error) {
-	return exec.Command("./pg-init-db.sh").Run()
+	return exec.Command("./pg/init-db.sh").Run()
 }
 
 func (self *PGCommand) ReConfigure(file string) (err error) {
@@ -79,23 +79,23 @@ func (self *PGCommand) ReConfigure(file string) (err error) {
 }
 
 func (self *PGCommand) Startup() (err error) {
-	self.serverCmd = exec.Command("./pg-start-db.sh")
+	self.serverCmd = exec.Command("./pg/start-db.sh")
 	err = self.serverCmd.Start()
 	return err
 }
 
 func (self *PGCommand) Graceful() error {
-	return exec.Command("./pg-gracefull-db.sh").Run()
+	return exec.Command("./pg/gracefull-db.sh").Run()
 }
 
 func (self *PGCommand) Shutdown() error {
-	return exec.Command("./pg-stop-db.sh").Run()
+	return exec.Command("./pg/stop-db.sh").Run()
 }
 
 func (self *PGCommand) Backup() ([]byte, error) {
-	return exec.Command("./pg-backup-db.sh").CombinedOutput()
+	return exec.Command("./pg/backup-db.sh").CombinedOutput()
 }
 
 func (self *PGCommand) Restore() ([]byte, error) {
-	return exec.Command("./pg-restore-db.sh").CombinedOutput()
+	return exec.Command("./pg/restore-db.sh").CombinedOutput()
 }
